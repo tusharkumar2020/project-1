@@ -17,6 +17,7 @@ const TotalCost = ({ totalCosts, ItemsDisplay }) => {
          
             <div className="render_items">
                 <ItemsDisplay />
+                lala
             </div>
         </div>
       </div>
