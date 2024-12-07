@@ -30,17 +30,13 @@ const handleAddToCart = (index) => {
     if (venueItems[index].quantity > 0) {
         dispatch(decrementQuantity(index));
     }
-    };
+};
 const handleIncrementAvQuantity = (index) => {
-    const handleIncrementAvQuantity = (index) => {
-        dispatch(incrementAvQuantity(index));
-    };
+    dispatch(incrementAvQuantity(index));
 };
 
 const handleDecrementAvQuantity = (index) => {
-    const handleDecrementAvQuantity = (index) => {
-        dispatch(decrementAvQuantity(index));
-    };
+    dispatch(decrementAvQuantity(index));
 };
 
 const handleMealSelection = (index) => {
