@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import "./ConferenceEvent.css";
 import TotalCost from "./TotalCost";
+import { toggleMealSelection } from "./mealsSlice";
+import { incrementAvQuantity, decrementAvQuantity } from "./avSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementQuantity, decrementQuantity } from "./venueSlice";
-import { incrementAvQuantity, decrementAvQuantity } from "./avSlice";
-import { toggleMealSelection } from "./mealsSlice";
-
 const ConferenceEvent = () => {
     const [showItems, setShowItems] = useState(false);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
-
     const venueItems = useSelector((state) => state.venue);
     const avItems = useSelector((state) => state.av);
     const mealsItems = useSelector((state) => state.meals);
     const dispatch = useDispatch();
-
     const remainingAuditoriumQuantity = 3 - venueItems.find(item => item.name === "Auditorium Hall (Capacity:200)").quantity;
 
-    const avTotalCost = calculateTotalCost("av");
-    const mealsTotalCost = calculateTotalCost("meals");
 
     const handleToggleItems = () => {
         console.log("handleToggleItems called");
@@ -141,7 +136,8 @@ const ConferenceEvent = () => {
         return totalCost;
     };
     const venueTotalCost = calculateTotalCost("venue");
-
+    const avTotalCost = calculateTotalCost("av");
+    const mealsTotalCost = calculateTotalCost("meals");
     const navigateToProducts = (idType) => {
         if (idType == '#venue' || idType == '#addons' || idType == '#meals') {
             if (showItems) { // Check if showItems is false
@@ -154,6 +150,7 @@ const ConferenceEvent = () => {
         av: avTotalCost,
         meals: mealsTotalCost,
     };
+
     return (
         <>
             <navbar className="navbar_event_conference">
@@ -261,7 +258,6 @@ const ConferenceEvent = () => {
                                     ))}
                                 </div>
                                 <div className="total_cost">Total Cost: {avTotalCost}</div>
-
                             </div>
 
                             {/* Meal Section */}
@@ -298,12 +294,11 @@ const ConferenceEvent = () => {
                                 </div>
                                 <div className="total_cost">Total Cost: {mealsTotalCost}</div>
 
-
                             </div>
                         </div>
                     ) : (
                         <div className="total_amount_detail">
-                            <TotalCost totalCosts={totalCosts} handleClick={handleToggleItems} ItemsDisplay={() => <ItemsDisplay items={items} />} />
+                            <TotalCost totalCosts={totalCosts} ItemsDisplay={() => <ItemsDisplay items={items} />} />
                         </div>
                     )
                 }
